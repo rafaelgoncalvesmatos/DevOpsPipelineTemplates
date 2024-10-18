@@ -1,0 +1,12 @@
+name: Template Workflow
+
+jobs:
+  template_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v3
+      - run: npm install
+      - run: node index.js
+        env:
+          MY_VARIABLE: ${{ inputs.my_variable }}
+          ANOTHER_VARIABLE: ${{ inputs.another_variable }}
