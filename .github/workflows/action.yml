@@ -4,7 +4,7 @@ inputs:
   my_variable:
     required: true
 
-jobs:
+runs:
   template_job:
     runs-on: ubuntu-latest
     steps:
