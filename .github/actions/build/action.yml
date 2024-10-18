@@ -2,11 +2,11 @@ name: 'build'
 description: 'build application'
 
 inputs:
-  environment:
+  app-name:
     description: 'my-app'
     required: true
 
 runs:
   using: 'node12'
   steps:
-    - run: echo "Deploying to environment: ${{ inputs.environment }}"
+    - run: 'echo "Deploying to environment: ${{ inputs.app-name }}"'

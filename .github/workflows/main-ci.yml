@@ -13,6 +13,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build
-        uses: ".github/actions/build/action.yml"
+        uses: .github/actions/build/action.yml
         with:
           app-name: 'Myapp'
