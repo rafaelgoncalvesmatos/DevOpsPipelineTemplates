@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
       - run: npm install
-      - run: node index.js
+      - name: node index.js
         shell: bash
         run: |
           echo ${{ inputs.my_variable }}
