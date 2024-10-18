@@ -17,6 +17,6 @@ jobs:
           ls -ltrah 
 
       - name: Build
-        uses: .github/actions/build/action.yml
+        uses: actions/build@v1
         with:
           app-name: 'Myapp'
