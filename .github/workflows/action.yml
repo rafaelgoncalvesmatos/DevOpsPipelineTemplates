@@ -3,8 +3,6 @@ name: Template Workflow
 inputs:
   my_variable:
     required: true
-  another_variable:
-    required: true
 
 jobs:
   template_job:
@@ -15,8 +13,4 @@ jobs:
       
       - name: node index.js
         shell: bash
-        run: echo ${{ inputs.my_variable }}
-
-        # env:
-        #   MY_VARIABLE: ${{ inputs.my_variable }}
-        #   ANOTHER_VARIABLE: ${{ inputs.another_variable }}
+        run: echo "${{ inputs.my_variable }}"
