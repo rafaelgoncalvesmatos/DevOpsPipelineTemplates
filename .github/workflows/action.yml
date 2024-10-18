@@ -14,9 +14,10 @@ jobs:
       - run: npm install
       - name: node index.js
         shell: bash
-        run: |
-          echo ${{ inputs.my_variable }}
-          echo ${{ inputs.another_variable }}
+        run: echo $test
+        env: 
+          test: ${{ inputs.my_variable }}
+
         # env:
         #   MY_VARIABLE: ${{ inputs.my_variable }}
         #   ANOTHER_VARIABLE: ${{ inputs.another_variable }}
