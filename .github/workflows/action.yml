@@ -13,4 +13,4 @@ jobs:
       
       - name: node index.js
         shell: bash
-        run: echo "${{ inputs.my_variable }}"
+        run: echo teste
