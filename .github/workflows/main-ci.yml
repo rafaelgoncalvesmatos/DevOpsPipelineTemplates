@@ -12,5 +12,5 @@ jobs:
       # - uses: ./.github/workflows
       - uses: ./.github/actions/build
         with:
-          my_variable: "value_from_main"
+          my_variable: "My name is Victor"
          
