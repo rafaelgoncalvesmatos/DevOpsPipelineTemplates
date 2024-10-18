@@ -7,6 +7,10 @@ jobs:
       - uses: actions/setup-node@v3
       - run: npm install
       - run: node index.js
-        env:
-          MY_VARIABLE: ${{ inputs.my_variable }}
-          ANOTHER_VARIABLE: ${{ inputs.another_variable }}
+        shell: bash
+        run: |
+          echo ${{ inputs.my_variable }}
+          echo ${{ inputs.another_variable }}
+        # env:
+        #   MY_VARIABLE: ${{ inputs.my_variable }}
+        #   ANOTHER_VARIABLE: ${{ inputs.another_variable }}
