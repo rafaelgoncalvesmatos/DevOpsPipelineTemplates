@@ -13,4 +13,4 @@ jobs:
       - uses: ./.github/workflows
         with:
           my_variable: "value_from_main"
-          another_variable: "value_from_main"
+         

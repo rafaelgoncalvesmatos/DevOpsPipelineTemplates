@@ -12,11 +12,10 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
       - run: npm install
+      
       - name: node index.js
         shell: bash
-        run: echo $test
-        env: 
-          test: ${{ inputs.my_variable }}
+        run: echo ${{ inputs.my_variable }}
 
         # env:
         #   MY_VARIABLE: ${{ inputs.my_variable }}
