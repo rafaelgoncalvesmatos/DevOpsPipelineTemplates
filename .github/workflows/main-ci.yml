@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build 
-        uses: ./actions/build
+      - name: Build
+        uses: ./.github/actions/build
         with:
           app-name: 'Myapp'
