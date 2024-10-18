@@ -5,12 +5,11 @@ inputs:
     required: true
 
 runs:
-  template_job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-      - run: npm install
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+    - run: npm install
       
-      - name: node index.js
-        shell: bash
-        run: echo teste
+    - name: node index.js
+      shell: bash
+      run: echo teste
