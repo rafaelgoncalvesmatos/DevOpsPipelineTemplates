@@ -6,10 +6,7 @@ inputs:
 
 runs:
   using: "composite"
-  steps:
-    - uses: actions/setup-node@v3
-    - run: npm install
-      
+  steps:      
     - name: node index.js
       shell: bash
       run: echo teste
