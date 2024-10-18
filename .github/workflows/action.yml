@@ -1,5 +1,11 @@
 name: Template Workflow
 
+inputs:
+  my_variable:
+    required: true
+  another_variable:
+    required: true
+
 jobs:
   template_job:
     runs-on: ubuntu-latest
