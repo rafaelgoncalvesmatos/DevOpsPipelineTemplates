@@ -17,6 +17,6 @@ jobs:
           ls -ltrah 
 
       - name: Build
-        uses: actions/build@v1
+        uses: actions/build
         with:
           app-name: 'Myapp'
