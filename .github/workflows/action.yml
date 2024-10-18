@@ -9,4 +9,4 @@ runs:
   steps:      
     - name: node index.js
       shell: bash
-      run: echo teste
+      run: echo ${{ inputs.my_variable }}
