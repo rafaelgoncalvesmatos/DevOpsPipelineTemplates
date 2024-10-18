@@ -1,13 +1,12 @@
-name: 'build'
-description: 'build application'
+name: Template Workflow
 
 inputs:
-  app-name:
-    description: 'my-app'
+  my_variable:
     required: true
 
 runs:
-  steps:
-    - name: echo test
+  using: "composite"
+  steps:      
+    - name: node index.js
       shell: bash
-      run: echo ${{ inputs.app-name }}
+      run: echo ${{ inputs.my_variable }}
