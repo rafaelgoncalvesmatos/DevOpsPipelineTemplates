@@ -8,12 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Build
-        uses: ./.github/actions/build
+        uses: .github/actions/build
         with:
           app-name: 'Myapp'
