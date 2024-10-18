@@ -7,7 +7,6 @@ inputs:
     required: true
 
 runs:
-  # using: ubuntu-latest
   steps:
     - name: echo test
       shell: bash

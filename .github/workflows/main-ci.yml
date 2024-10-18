@@ -1,17 +1,15 @@
-name: Build Workflow
+name: Main Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build:
-    runs-on: node20
+  main:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Use local my-action
-        uses: ./.github/actions/build
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/template.yml
         with:
-          app-name: 'Myapp'
+          my_variable: "value_from_main"
+          another_variable: "value_from_main"
