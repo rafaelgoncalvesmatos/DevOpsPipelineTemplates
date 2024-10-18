@@ -11,12 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
-      - name: Check local directory
-        run: |
-          ls -ltrah 
-
-      - name: Build
-        uses: ./github/actions/build
+      - name: Use local my-action
+        uses: ./.github/actions/build
         with:
           app-name: 'Myapp'
