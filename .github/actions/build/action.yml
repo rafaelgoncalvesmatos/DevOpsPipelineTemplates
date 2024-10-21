@@ -7,6 +7,9 @@ inputs:
 runs:
   using: "composite"
   steps:      
-    - name: node index.js
+    - name: echo command 
       shell: bash
       run: echo ${{ inputs.my_variable }}
+
+    - name: Verify commit
+      run: git branch --remote --contains | grep origin/main
