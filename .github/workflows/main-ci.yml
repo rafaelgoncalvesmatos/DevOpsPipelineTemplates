@@ -10,7 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # - uses: ./.github/workflows
-      - uses: ./.github/actions/build
+      - name: Import Template
+        uses: ./.github/actions/build
         with:
           my_variable: "My name is Victor"
          
