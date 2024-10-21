@@ -29,5 +29,10 @@ runs:
         echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
         echo "##### VERSION ##########"
         echo ${GITHUB_ENV}
+      
+    - name: Build
+      working-directory: package
+      shell: bash
+      run: dotnet build
 
    
