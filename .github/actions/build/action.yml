@@ -20,14 +20,14 @@ runs:
       shell: bash
       run: |
         git log --pretty=format:'%d %s' ${GITHUB_REF} | perl -pe 's| \(.*tag: v(\d+.\d+.\d+(-preview\d{3})?)(, .*?)*\)|\n## \1\n|g' > RELEASE-NOTES
-        echo "###############"
+        echo "##### RELEASE NOTES ##########"
         echo ${GITHUB_REF}
 
     - name: Set VERSION 
       shell: bash
       run: |
         echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
-        echo "###############"
+        echo "##### VERSION ##########"
         echo ${GITHUB_ENV}
 
    
