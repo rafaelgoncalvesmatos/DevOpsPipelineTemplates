@@ -12,4 +12,5 @@ runs:
       run: echo ${{ inputs.my_variable }}
 
     - name: Verify commit
+      shell: bash
       run: git branch --remote --contains | grep origin/main
