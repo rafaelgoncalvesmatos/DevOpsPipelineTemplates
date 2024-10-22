@@ -1,0 +1,6 @@
+@DigitalInnovation.Common.Api_HostAddress = http://localhost:5156
+
+GET {{DigitalInnovation.Common.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

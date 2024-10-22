@@ -1,0 +1,159 @@
+name: Build Document API
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'demo*'
+      - 'prod*'
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  ORGANIZATION: Underwriters-Labs
+  APP_NAME: chatbot
+  LOCATION: eastus2
+  ENVIRONMENT: review
+  VERSION: latest
+  OWNER: di
+  IMAGE_NAME: 'underwriters-labs/digital-innovation-extended-document-library/document-api'
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
+jobs:
+  build-docker:
+    environment:
+      name: ${{ startsWith(github.ref, 'refs/tags/demo') && 'demo' || startsWith(github.ref, 'refs/tags/prod') && 'prod' || github.ref == 'refs/heads/main' && 'main' || 'review'}}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pulling repo
+        uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+         filters: |
+           infra:
+             - 'infra/**'
+      - name: Set environment and version
+        id: set-env
+        run: |
+            if [[ "$GITHUB_REF" == refs/heads/main ]]; then
+              echo "ENVIRONMENT=main" >> $GITHUB_ENV
+              echo "VERSION=main" >> $GITHUB_ENV
+            else              
+              TAG_NAME=${GITHUB_REF#refs/tags/}
+              if [[ "$TAG_NAME" == demo* ]]; then
+                echo "ENVIRONMENT=demo" >> $GITHUB_ENV
+                VERSION=${TAG_NAME#*-}
+                echo "VERSION=$VERSION" >> $GITHUB_ENV
+              elif [[ "$TAG_NAME" == prod* ]]; then
+                echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+                VERSION=${TAG_NAME#*-}
+                echo "VERSION=$VERSION" >> $GITHUB_ENV
+              else
+                echo "ENVIRONMENT=review" >> $GITHUB_ENV
+              fi              
+            fi
+      - name: Set registry name and registry
+        id: update-registry
+        run: |
+          echo "REGISTRY_NAME=cr${{env.APP_NAME}}${{env.OWNER}}${{env.ENVIRONMENT}}" >> $GITHUB_ENV
+          echo "REGISTRY=cr${{env.APP_NAME}}${{env.OWNER}}${{env.ENVIRONMENT}}.azurecr.io" >> $GITHUB_ENV
+          echo $GITHUB_ENV
+        
+              
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: deploy infrastructure
+        uses: Azure/CLI@v1
+        if: steps.filter.outputs.infra == 'true'  ||  env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'prod'
+        with:
+          inlineScript: |
+                #!/bin/bash
+                az deployment sub create \
+                --location ${{env.LOCATION}} \
+                --template-file ./infra/main.bicep \
+                --parameters owner=${{env.OWNER}} \
+                --parameters env=${{env.ENVIRONMENT}} \
+                --parameters appName=${{env.APP_NAME}} \
+                --parameters ADAppName=${{secrets.AD_APP_NAME}} \
+                --parameters ADClientId=${{secrets.AD_CLIENT_ID}} \
+                --parameters ADScope=${{secrets.AD_SCOPE}} \
+                --parameters ADTokenUrl=${{secrets.AD_TOKEN_URL}} \
+                --parameters Cors=${{vars.Cors}} \
+                --parameters DevIps=${{vars.DEV_IPS}} \
+                --parameters IpSegment=${{vars.IPSEGMENT}} \
+                --parameters IpSegmentApp=${{vars.IPSEGMENT_APPSERVICE}} \
+                --parameters ADTenantId=${{secrets.AD_TENANT_ID}}
+
+
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{env.REGISTRY_NAME}}          
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+              type=schedule
+              type=ref,event=branch
+              type=ref,event=pr
+              type=semver,pattern={{version}}
+              type=semver,pattern={{major}}.{{minor}}
+              type=semver,pattern={{major}}
+              type=sha   
+
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push image
+        uses: docker/build-push-action@v3
+        with:
+             context: "{{defaultContext}}:apps/document-api"
+             file: Dockerfile
+             push: ${{ true }}
+             tags: ${{ steps.meta.outputs.tags }}
+             labels: ${{ steps.meta.outputs.labels }}
+             outputs: type=local,dest=app/
+
+
+      - name: Update version on app service
+        uses: Azure/CLI@v1
+        with:
+          inlineScript: |
+            #!/bin/bash
+            az deployment group create --resource-group 'rg_${{env.APP_NAME}}_${{env.OWNER}}_${{env.ENVIRONMENT}}' --template-file  ./infra/updateVersion.bicep \
+            --parameters owner=${{env.OWNER}} \
+            --parameters env=${{env.ENVIRONMENT}} \
+            --parameters appName=${{env.APP_NAME}} \
+            --parameters imageName=${{env.IMAGE_NAME}} \
+            --parameters imageTag=${{env.DOCKER_METADATA_OUTPUT_VERSION}}
+      
+
+      - name: Code Coverage Report
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: app/coverage/merged.cobertura.xml
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        with:
+          recreate: true
+          path: code-coverage-results.md
