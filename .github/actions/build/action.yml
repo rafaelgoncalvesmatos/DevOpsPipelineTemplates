@@ -44,6 +44,6 @@ runs:
     - name: Build
       working-directory: package
       shell: bash
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build DigitalInnovation.Common.sln --configuration Release --no-restore
 
    
