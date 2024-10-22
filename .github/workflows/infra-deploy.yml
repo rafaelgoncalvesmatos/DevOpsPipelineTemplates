@@ -1,11 +1,5 @@
 name: Test Pipeline Template
-on:
-  workflow_call:
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest 
-    steps:
-      - name: show simple message
-        shell: bash
-        run: echo "Hello World!"
+runs-on: windows-latest
+steps:
+ - uses: actions/checkout@v2
