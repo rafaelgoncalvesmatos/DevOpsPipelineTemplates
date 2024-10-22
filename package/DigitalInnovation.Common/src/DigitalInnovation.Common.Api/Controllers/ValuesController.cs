@@ -6,16 +6,16 @@ namespace DigitalInnovation.Common.Api.Controllers
     [Route("api/[controller]")]
     public class ValuesController : ControllerBase
     {
-        [HttpGet("Hello user")]
+        [HttpGet("hello")]
         public IActionResult GetHello()
         {
-            return OK("Hello from Digital API!!");
+            return Ok("Hello from DigitalInnovation API");
         }
 
-        [HttpGet("goodbye user")]
+        [HttpGet("goodbye")]
         public IActionResult GetGoodbye()
         {
-            return OK("Goodbye from Digital API!!");
+            return Ok("Goodbye from DigitalInnovation API");
         }
     }
 }
