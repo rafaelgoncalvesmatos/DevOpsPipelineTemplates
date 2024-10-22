@@ -16,6 +16,12 @@ runs:
       run: |
         git branch --remote --contains | grep origin/devops
 
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'        
+
     - name: Extract release notes
       shell: bash
       run: |
@@ -29,10 +35,15 @@ runs:
         echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
         echo "##### VERSION ##########"
         echo ${GITHUB_ENV}
-      
+
+    - name: Restore dependencies
+      working-directory: package
+      shell: bash
+      run: dotnet restore
+
     - name: Build
       working-directory: package
       shell: bash
-      run: dotnet build
+      run: dotnet build --configuration Release --no-restore
 
    
