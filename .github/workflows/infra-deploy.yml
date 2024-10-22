@@ -1,5 +1,9 @@
+# steps:
+#   - name: deploy infrastructure
+#     shell: bash
+#     run: |
+#       echo "deploying infrastructure"
+
+runs-on: ubuntu-latest
 steps:
-  - name: deploy infrastructure
-    shell: bash
-    run: |
-      echo "deploying infrastructure"
+ - uses: actions/checkout@v2
