@@ -1,0 +1,15 @@
+name: Main Pipeline
+
+on:
+  push:
+    branches: [devops]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Import Template
+        uses: ./.github/actions/build
+        with:
+          my_variable: "My name is Victor"
