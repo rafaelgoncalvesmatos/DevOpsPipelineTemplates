@@ -36,10 +36,10 @@ runs:
         echo "##### VERSION ##########"
         echo ${GITHUB_ENV}
 
-    - name: Restore dependencies
-      working-directory: package
-      shell: bash
-      run: dotnet restore
+    # - name: Restore dependencies
+    #   working-directory: package
+    #   shell: bash
+    #   run: dotnet restore
 
     - name: Build
       working-directory: package
