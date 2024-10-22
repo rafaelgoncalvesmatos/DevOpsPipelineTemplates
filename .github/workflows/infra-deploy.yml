@@ -1,9 +1,11 @@
-# steps:
-#   - name: deploy infrastructure
-#     shell: bash
-#     run: |
-#       echo "deploying infrastructure"
+name: Test Pipeline Template
+on:
+  workflow_call:
 
-runs-on: ubuntu-latest
-steps:
- - uses: actions/checkout@v2
+jobs:
+  deploy:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: show simple message
+        shell: bash
+        run: echo "Hello World!"
