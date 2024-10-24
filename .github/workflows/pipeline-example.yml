@@ -12,8 +12,11 @@ on:
     branches:
       - devops
 
+env:
+  name2: Testing
+
 jobs:
   checkout:
     uses: ./.github/workflows/infra-deploy.yml
     with:
-      name: ${{ inputs.name }}  
+      name: ${{ env.name2 }}  
