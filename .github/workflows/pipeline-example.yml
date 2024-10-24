@@ -16,4 +16,4 @@ jobs:
   checkout:
     uses: ./.github/workflows/infra-deploy.yml
     with:
-      name: ${{ env.name }}
+      name: ${{ inputs.name }}
