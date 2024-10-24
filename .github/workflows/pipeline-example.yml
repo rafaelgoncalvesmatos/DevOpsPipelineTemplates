@@ -2,21 +2,18 @@ name: HelloWorld
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   name:
-    #     type: string
-    #     default: 'World'
-    #     description: 'Your name'
-    #     required: true˜
+    inputs:
+      name:
+        type: string
+        default: 'World'
+        description: 'Your name'
+        required: true˜
   push:
     branches:
       - devops
-
-env:
-  name: Testing
 
 jobs:
   checkout:
     uses: ./.github/workflows/infra-deploy.yml
     with:
-      name: ${{ env.name }}  
+      name: ${{ env.name }}
