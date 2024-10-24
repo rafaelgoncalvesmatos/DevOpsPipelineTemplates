@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       name:
+        type: string
+        default: 'World'
         description: 'Your name'
         required: true
   push:
