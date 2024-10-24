@@ -1,5 +1,10 @@
 name: Test Pipeline Template
 
+inputs:
+  name:
+    description: 'Your name'
+    required: true
+
 on:
   workflow_call:
 
@@ -9,7 +14,7 @@ jobs:
     steps:
     - name: Test
       run: |
-        echo "Hello World!"
+        echo "Hello {{ inputs.name }}!"
     - name: Test 2
       run: |
         echo "Hello World!"
