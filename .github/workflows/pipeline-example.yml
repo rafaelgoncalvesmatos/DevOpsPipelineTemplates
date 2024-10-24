@@ -17,6 +17,6 @@ on:
 
 jobs:
   checkout:
-    uses: ./.github/workflows/infra-deploy.yml@devops
+    uses: ./.github/workflows/infra-deploy.yml
     with:
       name: ${{ inputs.name }}  
