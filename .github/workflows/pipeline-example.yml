@@ -10,7 +10,7 @@ on:
     inputs:
       name:
         description: 'Your name'
-      required: true
+        required: true
   push:
     branches:
       - devops
