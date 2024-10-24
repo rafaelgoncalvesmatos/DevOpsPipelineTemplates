@@ -4,10 +4,10 @@ name: Build and Deploy .NET Core API
 on:
   push:
     branches:
-      - devops
+      - main
   pull_request:
     branches:
-      - devops
+      - main
 
 jobs:
   build:
