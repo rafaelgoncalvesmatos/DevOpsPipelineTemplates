@@ -7,9 +7,14 @@ inputs:
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'Your name'
+      required: true
   push:
     branches:
       - devops
+
 jobs:
   checkout:
     uses: .github/workflows/infra-deploy.yml@devops
