@@ -6,8 +6,8 @@ on:
       name:
         type: string
         default: 'World'
-        description: 'Your name'
-        required: true˜
+        description: 'test'
+        required: true
   push:
     branches:
       - devops
