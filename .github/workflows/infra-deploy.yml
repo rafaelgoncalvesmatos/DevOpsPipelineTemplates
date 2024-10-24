@@ -1,12 +1,9 @@
 name: Test Pipeline Template
 
-inputs:
-  name:
-    description: 'Your name'
-    required: true
-
 on:
   workflow_call:
+    inputs:
+      name:
 
 jobs:
   build:
