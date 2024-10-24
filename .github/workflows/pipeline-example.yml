@@ -1,0 +1,17 @@
+name: HelloWorld
+
+inputs:
+  name:
+    description: 'Your name'
+    required: true
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - devops
+jobs:
+  checkout:
+    uses: .github/workflows/infra-deploy.yml@devops
+    with:
+      name: ${{ inputs.name }}  
