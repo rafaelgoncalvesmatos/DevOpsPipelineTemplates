@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Test
       run: |
-        echo "Hello {{ inputs.name }}!"
+        echo "Hello ${{ inputs.name }}!"
     - name: Test 2
       run: |
         echo "Hello World!"
