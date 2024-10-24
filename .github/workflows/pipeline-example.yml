@@ -1,10 +1,5 @@
 name: HelloWorld
 
-inputs:
-  name:
-    description: 'Your name'
-    required: true
-
 on:
   workflow_dispatch:
     inputs:
