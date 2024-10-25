@@ -9,7 +9,7 @@ on:
 jobs:
   build:
   steps:
-  - name: Test
-    uses: ./.github/workflows/infra-deploy.yml
-    with:
-      name: ${{ inputs.name }}
+    - name: Test
+      uses: ./.github/workflows/infra-deploy.yml
+      with:
+        name: ${{ inputs.name }}
