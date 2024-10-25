@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     uses: ./.github/workflows/infra-deploy.yml
     with:
-      name: teste
+      name: "teste"
