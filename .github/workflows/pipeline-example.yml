@@ -8,8 +8,7 @@ on:
 
 jobs:
   build:
-  steps:
-    - name: Test
-      uses: ./.github/workflows/infra-deploy.yml
-      with:
-        name: ${{ inputs.name }}
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/infra-deploy.yml
+    with:
+      name: teste
