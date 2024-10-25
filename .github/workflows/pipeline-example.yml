@@ -2,16 +2,14 @@ name: HelloWorld
 
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        type: string
-        required: true
   push:
     branches:
       - devops
 
 jobs:
-  checkout:
+  build:
+  steps:
+  - name: Test
     uses: ./.github/workflows/infra-deploy.yml
     with:
       name: ${{ inputs.name }}
